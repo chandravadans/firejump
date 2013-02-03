@@ -5,7 +5,7 @@ var width = (window.innerWidth),
 	state = true,
 	c = document.getElementById('c'), 
 	ctx = c.getContext('2d');
-			
+    var flag=0;			
 	c.width = width;
 	c.height = height;
 	var lives=3;
@@ -22,7 +22,7 @@ var width = (window.innerWidth),
 	audiojump.src = "jump.wav";
 
 	var audiobonus = document.createElement("audio");
-	audiobonus.src = "YEAH.wav";//add SOUND
+	audiobonus.src = "wohoo.wav";//add SOUND
 
 	var audiolifeboard = document.createElement("audio");
 	audiolifeboard.src = "yess.wav";
@@ -66,7 +66,6 @@ var howManyCircles = 50, circles = [];
 
 for (var i = 0; i < howManyCircles; i++) 
 	circles.push([(Math.random() * width), (Math.random() * height), Math.random() * 3, 0.3+Math.random()]);
-	//circles.push([Math.random() * width, Math.random() * height, Math.random() * 100, Math.random() / 2]);
 
 var DrawCircles = function(){
 	for (var i = 0; i < howManyCircles; i++) {
@@ -114,7 +113,6 @@ var player = new (function(){
 			that.fallSpeed = 0;
 			that.isJumping = true;
 			that.jumpSpeed = 17;
-			audiojump.play();
 		}
 	}
 	
@@ -126,7 +124,11 @@ var player = new (function(){
 		}
 		else {
 			if (that.jumpSpeed > 10) 
+			{
 				points++;
+				if(points%100==0)
+					flag++;
+			}
 			// if player is in mid of the gamescreen
 			// dont move player up, move obstacles down instead
 			MoveCircles(that.jumpSpeed * 0.5);
@@ -140,8 +142,11 @@ var player = new (function(){
 						type = 1;
 					else 
 						type = 0;
-					if(points%100==0)		//Lifeboard
+					if(flag)		//Lifeboard
+					{
 						platforms[ind] = new Platform(Math.random() * (width - platformWidth), platform.y - height, 2);
+						flag=0;
+					}
 					else
 						platforms[ind] = new Platform(Math.random() * (width - platformWidth), platform.y - height, type);
 
@@ -245,7 +250,8 @@ document.onmousemove = function(e){
 		that.firstColor = '#FF8C00';
 		that.secondColor = '#EEEE00';
 		//that.patt=patt1;
-		that.onCollide = function(){
+		that.onCollide = function()
+		{
 			audiojump.play();
 			player.fallStop();
 		};
@@ -253,12 +259,12 @@ document.onmousemove = function(e){
 		if (type === 1) 
 		{
 			//Spring board
-			audiobonus.play();
 			that.firstColor = '#00CC66';
 			that.secondColor = '#33FF99';
 			//that.patt=patt2;
 
 			that.onCollide = function(){
+				audiobonus.play();
 				player.fallStop();
 				player.jumpSpeed = 50;
 			};
@@ -266,15 +272,17 @@ document.onmousemove = function(e){
 		if(type===2)
 		{
 			//Life Board
-			audiolifeboard.play();
 			that.firstColor = '#3399CC';
 			that.secondColor = '#3366CC';
 			//that.patt=patt2;
 
-			that.onCollide = function(){
+			that.onCollide = function()
+			{
+
+				audiolifeboard.play();
 				player.fallStop();
-			player.jumpSpeed=30;
-			ctx.fillStyle = '#000000'//'#d0e7f9';
+				player.jumpSpeed=30;
+				ctx.fillStyle = '#000000'//'#d0e7f9';
 				lives++;
 			};
 
@@ -358,10 +366,10 @@ var GameLoop = function(){
 	checkCollision();
 	
 	ctx.fillStyle = "White";
-	ctx.fillText("POINTS:" + points, 10, height-10);
+	ctx.fillText("Points:" + points, 10, height-10);
 
 	ctx.fillStyle = "White";
-	ctx.fillText("LIVES:" + lives, 90, height-10);
+	ctx.fillText("Lives:" + lives, 90, height-10);
 
 	ctx.fillStyle = "White";
 	if(points>highsc)
@@ -409,15 +417,4 @@ var GameRestart = function(){
 	window.location.reload();
 	document.getElementById("overlay").hidden=true;
 	return false;
-}
-
-var theNewScript = document.createElement("script");
-theNewScript.type = "text/javascript";
-theNewScript.src = "//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js";
-document.getElementsByTagName("head")[0].appendChild(theNewScript);
-
-var ClearAudio = function () {
-	$.each($('audio'), function () {
-    this.stop();
-});
 }
