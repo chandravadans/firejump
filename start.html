@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<script src="json2.js"></script>
+<script src="jstorage.js"></script>
+    <title>Fire Jump</title>
+	<style>
+		body {
+			margin:0px;
+			padding:0px;
+			text-align:center;
+		}
+		
+		canvas{
+			outline:0;
+			border:1px solid #000;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+<canvas id='c'></canvas>
+<div id="overlay" hidden="true" background="red" >
+		<a href="#" onClick="javascript:GameRestart()" style="
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    color: #FFF;
+    font-weight: light;
+    border: 1px solid #CCC;
+    padding: 5px 15px;"> RESTART</a>
+</div>
+<script type="text/javascript">
+//BACKGROUND MUSIC 
+
+var audio = document.createElement("audio");
+audio.src = "background.ogg";
+audio.addEventListener('ended', function () {
+    setTimeout(function () { audio.play();audio.vloume=0.3;}, 50);
+}, false);
+audio.play();
+audio.vloume=0.3;
+</script>
+<script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+/*@import url(http://fonts.googleapis.com/css?family=Gloria+Hallelujah);*/
+@font-face {
+font-family: 'YummyCupcakes';
+src: url("edosz.ttf");
+}
+
+*{box-sizing: border-box;}
+
+body {
+	margin: 0; padding: 0;
+			width:100%;
+				  height:800px;
+
+	/*background:url(bgstars.png);*/
+	font-family: 'YummyCupcakes';
+}
+
+.container {
+	height: 80%;
+	width: 80%;
+	position: relative;
+	margin: auto;
+	background:url(bgstars.png);
+	/*overflow: hidden;*/
+}
+
+#mainMenu{
+	background-repeat:repeat-x;
+	text-align: center;
+	/*position: relative;*/
+	z-index: 2;
+}
+
+
+h2, h3, h1 {font-weight: normal}
+h1 {
+	font-size: 60px; 
+	color: #5a5816; 
+	transform: rotate(-10deg);
+	margin: 0px;
+}
+
+#imgdiv
+{
+	/*position:relative;*/
+	/*top:"50%";
+	left:"50%"*/
+	width:50%;
+		  height:80%;
+	margin-right:auto;
+	margin-left:auto;
+	margin-top:5%;
+}
+h3 {text-align: right; margin: -10px 20px 0 0; color: #5e96be}
+h3 a {color: #5a5816}
+
+
+.button.tweet {bottom: 100px; background-position: 0 -90px}
+.button.fb {bottom: 150px; background-position: 0 -60px}
